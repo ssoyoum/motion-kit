@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쌓이는 알림</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 쌓이는 알림 · 최대 3개 · 2.6s 뒤 사라짐 · 1.4s마다 · 클릭해 보세요 */
+.mk-js-toast-queue { position: relative; width: 220px; height: 124px; }
+.mk-js-toast-queue button {
+  position: absolute; left: 0; top: 0; padding: 5px 10px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--mk-line, #DCE0EA); background: var(--mk-surface, #fff); color: var(--mk-ink, #1B1E26); font: 600 11.5px system-ui, sans-serif;
+}
+.mk-js-toast-queue ol { position: absolute; right: 0; bottom: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.mk-js-toast-queue li {
+  padding: 7px 11px; border-radius: 9px; font-size: 12px; white-space: nowrap;
+  background: var(--mk-ink, #1B1E26); color: var(--mk-on-ink, #fff); box-shadow: 0 6px 14px rgb(0 0 0 / .18);
+  animation: mk-js-toast-queue-in .3s cubic-bezier(.2, .8, .2, 1);
+}
+.mk-js-toast-queue li.out { animation: mk-js-toast-queue-out .3s ease-in forwards; }
+@keyframes mk-js-toast-queue-in { from { opacity: 0; transform: translateX(30px); } }
+@keyframes mk-js-toast-queue-out { to { opacity: 0; transform: translateX(30px); } }
+</style>
+</head>
+<body>
+<div class="mk-js-toast-queue"><button type="button">알림 보내기</button><ol></ol></div>
+<script>
+document.querySelectorAll(".mk-js-toast-queue").forEach(function (root) {
+var list = root.querySelector("ol"), k = 0, lastUser = 0;
+var msgs = ["주문이 접수됐어요", "결제가 완료됐어요", "배송이 시작됐어요", "리뷰 쿠폰이 도착했어요"];
+function out(li) {
+  if (li.classList.contains("out")) return;
+  li.classList.add("out");
+  li.addEventListener("animationend", function () { li.remove(); }, { once: true });
+}
+function push() {
+  var li = document.createElement("li");
+  li.textContent = msgs[k++ % msgs.length];
+  list.appendChild(li);
+  var live = list.querySelectorAll("li:not(.out)");
+  if (live.length > 3) out(live[0]);
+  setTimeout(function () { out(li); }, 2600);
+}
+root.querySelector("button").addEventListener("click", function () { lastUser = Date.now(); push(); });
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  var timer = setInterval(function () {
+    if (!root.isConnected) return clearInterval(timer);
+    if (Date.now() - lastUser > 3000) push();
+  }, 1400);
+}
+});
+</script>
+</body>
+</html>

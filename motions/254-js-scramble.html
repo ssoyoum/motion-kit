@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글자 뒤섞였다 맞춰짐</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 글자 뒤섞였다 맞춰짐 · 글자마다 무작위 시작·끝 프레임 · 1.8s 쉬고 다음 문구 */
+.mk-js-scramble { min-width: 210px; text-align: center; font: 800 20px/1.3 system-ui, sans-serif; color: var(--mk-ink, #1B1E26); }
+.mk-js-scramble i { font-style: normal; color: var(--mk-accent, #2F5BFF); opacity: .75; }
+</style>
+</head>
+<body>
+<div class="mk-js-scramble"><span>교동마을 산지직송</span></div>
+<script>
+document.querySelectorAll(".mk-js-scramble").forEach(function (root) {
+var el = root.querySelector("span");
+var phrases = ["교동마을 산지직송", "오늘 수확, 내일 도착", "NEW · 애플망고 특가"];
+var glyphs = "#*+=/-_?ABCDEFXYZ01가나다라마바사아";
+var k = 0;
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  setInterval(function () { el.textContent = phrases[++k % phrases.length]; }, 2500);
+  return;
+}
+function play(to) {
+  var from = el.textContent, len = Math.max(from.length, to.length), q = [];
+  for (var i = 0; i < len; i++) {
+    var s = Math.floor(Math.random() * 20), e = s + 10 + Math.floor(Math.random() * 20);
+    q.push({ from: from[i] || "", to: to[i] || "", s: s, e: e, ch: "" });
+  }
+  var f = 0;
+  (function step() {
+    if (!root.isConnected) return;
+    var out = "", done = 0;
+    q.forEach(function (c) {
+      if (f >= c.e) { done++; out += c.to; }
+      else if (f >= c.s) {
+        if (!c.ch || Math.random() < 0.28) c.ch = glyphs[Math.floor(Math.random() * glyphs.length)];
+        out += "<i>" + c.ch + "</i>";
+      } else out += c.from;
+    });
+    el.innerHTML = out;
+    f++;
+    if (done < q.length) requestAnimationFrame(step);
+    else setTimeout(function () { play(phrases[++k % phrases.length]); }, 1800);
+  })();
+}
+setTimeout(function () { play(phrases[++k % phrases.length]); }, 1200);
+});
+</script>
+</body>
+</html>

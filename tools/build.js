@@ -28,6 +28,12 @@ const count = {};
 M.forEach((m, i) => {
   count[m.cat] = (count[m.cat] || 0) + 1;
   const file = `${String(i + 1).padStart(3, "0")}-${m.id}.html`;
+  const js = m.js ? `
+<script>
+document.querySelectorAll(".mk-${m.id}").forEach(function (root) {
+${m.js.trim()}
+});
+</script>` : "";
   list.push(`- ${file}  [${m.cat}] ${m.name} — ${m.use}`);
   fs.writeFileSync(path.join(out, "motions", file), `${head}<title>${m.name}</title>
 <style>
@@ -42,7 +48,7 @@ ${m.css}
 </style>
 </head>
 <body>
-${m.html}
+${m.html}${js}
 </body>
 </html>
 `);

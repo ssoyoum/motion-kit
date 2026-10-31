@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLIP 섞기</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* FLIP 섞기 · First-Last-Invert-Play · 0.6s · 2.5s마다 · 클릭해 보세요 */
+.mk-js-flip-shuffle { display: grid; grid-template-columns: repeat(3, 34px); gap: 6px; cursor: pointer; }
+.mk-js-flip-shuffle i {
+  display: grid; place-items: center; height: 30px; border-radius: 7px;
+  font: 700 13px system-ui, sans-serif; font-style: normal; color: #fff; background: var(--mk-accent, #2F5BFF);
+}
+.mk-js-flip-shuffle i:nth-child(3n+2) { background: var(--mk-danger, #E5484D); }
+.mk-js-flip-shuffle i:nth-child(3n) { background: var(--mk-success, #1F9D55); }
+</style>
+</head>
+<body>
+<div class="mk-js-flip-shuffle"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i></div>
+<script>
+document.querySelectorAll(".mk-js-flip-shuffle").forEach(function (root) {
+function shuffle() {
+  var items = Array.prototype.slice.call(root.children);
+  var first = items.map(function (el) { return el.getBoundingClientRect(); });
+  var order = items.slice().sort(function () { return Math.random() - 0.5; });
+  order.forEach(function (el) { root.appendChild(el); });
+  items.forEach(function (el, i) {
+    var a = first[i], b = el.getBoundingClientRect(), dx = a.left - b.left, dy = a.top - b.top;
+    if (dx || dy) el.animate([{ transform: "translate(" + dx + "px," + dy + "px)" }, { transform: "none" }],
+      { duration: 600, easing: "cubic-bezier(.2, .8, .2, 1)" });
+  });
+}
+root.addEventListener("click", shuffle);
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  var timer = setInterval(function () {
+    if (!root.isConnected) return clearInterval(timer);
+    shuffle();
+  }, 2500);
+}
+});
+</script>
+</body>
+</html>

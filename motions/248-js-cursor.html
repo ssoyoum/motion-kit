@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>따라오는 커서</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 따라오는 커서 · pointermove + lerp 0.18 · 마우스를 올려 보세요 */
+.mk-js-cursor {
+  position: relative; width: 220px; height: 120px; overflow: hidden; display: grid; place-items: center; cursor: none;
+  border-radius: 12px; border: 1px dashed color-mix(in srgb, var(--mk-accent, #2F5BFF) 45%, transparent);
+  background: color-mix(in srgb, var(--mk-accent, #2F5BFF) 7%, transparent);
+}
+.mk-js-cursor b { font: 600 12px system-ui, sans-serif; color: var(--mk-ink-soft, #8A90A0); pointer-events: none; }
+.mk-js-cursor .dot, .mk-js-cursor .ring { position: absolute; left: 0; top: 0; border-radius: 50%; pointer-events: none; opacity: 0; }
+.mk-js-cursor .dot { width: 6px; height: 6px; margin: -3px; background: var(--mk-accent, #2F5BFF); transition: opacity .2s; }
+.mk-js-cursor .ring { width: 30px; height: 30px; margin: -15px; border: 2px solid var(--mk-accent, #2F5BFF); transition: opacity .2s, width .2s, height .2s, margin .2s; }
+.mk-js-cursor.on .dot, .mk-js-cursor.on .ring { opacity: 1; }
+.mk-js-cursor.down .ring { width: 18px; height: 18px; margin: -9px; }
+</style>
+</head>
+<body>
+<div class="mk-js-cursor"><span class="ring"></span><span class="dot"></span><b>여기서 움직여 보세요</b></div>
+<script>
+document.querySelectorAll(".mk-js-cursor").forEach(function (root) {
+var dot = root.querySelector(".dot"), ring = root.querySelector(".ring");
+var x = 0, y = 0, rx = 0, ry = 0, raf = 0;
+function loop() {
+  rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+  ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+  raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.3 ? requestAnimationFrame(loop) : 0;
+}
+root.addEventListener("pointermove", function (e) {
+  var r = root.getBoundingClientRect();
+  x = e.clientX - r.left; y = e.clientY - r.top;
+  dot.style.transform = "translate(" + x + "px," + y + "px)";
+  if (!raf) raf = requestAnimationFrame(loop);
+});
+root.addEventListener("pointerenter", function (e) {
+  var r = root.getBoundingClientRect();
+  rx = x = e.clientX - r.left; ry = y = e.clientY - r.top;
+  root.classList.add("on");
+});
+root.addEventListener("pointerleave", function () { root.classList.remove("on", "down"); });
+root.addEventListener("pointerdown", function () { root.classList.add("down"); });
+root.addEventListener("pointerup", function () { root.classList.remove("down"); });
+});
+</script>
+</body>
+</html>

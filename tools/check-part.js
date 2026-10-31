@@ -1,5 +1,5 @@
 // 사용: node tools/check-part.js src/parts/<파일>.js
-// 기본 모션 + 이 파트만 읽어 문법·id 중복·분류·keyframes 이름 충돌을 검사한다.
+// 기본 모션 + 이 파트만 읽어 문법·id 중복·분류·keyframes 이름 충돌·js 문법을 검사한다.
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const part = process.argv[2];
 const src = path.join(__dirname, "..", "src", "motion-kit.html");
@@ -12,6 +12,12 @@ M.forEach((m, i) => {
   for (const k of ["id", "cat", "name", "use", "meta", "html", "css"]) if (!m[k]) errs.push(`${m.id || i}: ${k} 없음`);
   if (ids.has(m.id)) errs.push("중복 id: " + m.id); ids.add(m.id);
   if (!ORDER.includes(m.cat)) errs.push(`${m.id}: 모르는 분류 ${m.cat}`);
+  if (m.js) {
+    try { new Function("root", m.js); } catch (e) { errs.push(`${m.id}: js 문법 오류 ${e.message}`); }
+    if (/<\/script/i.test(m.js)) errs.push(`${m.id}: js 안에 </script 를 쓰면 안 됨`);
+    const rootRe = new RegExp("^\\s*<\\w+[^>]*class=\"[^\"]*\\bmk-" + m.id + "(?![\\w-])");
+    if (!rootRe.test(m.html)) errs.push(`${m.id}: js 모션은 html 첫 요소에 class="mk-${m.id}" 필요`);
+  }
   for (const [, name] of (m.css || "").matchAll(/@keyframes\s+([\w-]+)/g)) {
     if (kf.has(name) && kf.get(name) !== m.id) errs.push(`keyframes 이름 충돌: ${name} (${kf.get(name)} / ${m.id})`);
     kf.set(name, m.id);

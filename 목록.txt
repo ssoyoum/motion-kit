@@ -1,5 +1,5 @@
-프론트 모션 키트 244종
-로딩 36 · 채팅 15 · 피드백 22 · 폼 7 · 버튼·호버 18 · 텍스트 28 · 주목 21 · 전환 25 · 내비 6 · 아이콘 16 · 일러스트 13 · 차트 12 · 배경 15 · 3D 10
+프론트 모션 키트 264종
+로딩 36 · 채팅 15 · 피드백 22 · 폼 7 · 버튼·호버 18 · 텍스트 28 · 주목 21 · 전환 25 · 내비 6 · 아이콘 16 · 일러스트 13 · 차트 12 · 배경 15 · 3D 10 · JS 20
 index.html = 전체 갤러리, motions/ = 하나씩 따로 연 파일
 
 - 001-spin.html  [로딩] 회전 링 — 버튼 안, 페이지 첫 진입
@@ -246,3 +246,23 @@ index.html = 전체 갤러리, motions/ = 하나씩 따로 연 파일
 - 242-d3-door.html  [3D] 문 열림 — 입장·체크인 화면
 - 243-d3-sphere.html  [3D] 고리 구 회전 — 글로벌·네트워크 표현
 - 244-d3-prism.html  [3D] 삼각기둥 회전 — 단계·키워드 3개 순환
+- 245-js-scroll-reveal.html  [JS] 스크롤 등장 — 목록·섹션이 화면에 들어올 때
+- 246-js-scroll-progress.html  [JS] 읽기 진행 바 — 긴 글·약관·상세 페이지
+- 247-js-sticky-shrink.html  [JS] 줄어드는 헤더 — 스크롤 시 상단 헤더 축소
+- 248-js-cursor.html  [JS] 따라오는 커서 — 포트폴리오·브랜드 사이트
+- 249-js-trail.html  [JS] 마우스 꼬리 — 이벤트 페이지 장식
+- 250-js-magnet.html  [JS] 자석 버튼 — 핵심 CTA
+- 251-js-tilt.html  [JS] 따라 기우는 카드 — 멤버십·상품 카드
+- 252-js-spotlight.html  [JS] 따라오는 조명 — 어두운 히어로·이벤트 배너
+- 253-js-ripple-pos.html  [JS] 누른 자리 물결 — 버튼·리스트 터치 반응
+- 254-js-scramble.html  [JS] 글자 뒤섞였다 맞춰짐 — 히어로 카피·브랜드 문구
+- 255-js-typewriter.html  [JS] 썼다 지우는 문구 — 검색창 예시·히어로 슬로건
+- 256-js-countup.html  [JS] 보이면 올라가는 숫자 — 통계·누적 실적 섹션
+- 257-js-odometer.html  [JS] 굴러가는 숫자판 — 방문자·재고 실시간 표시
+- 258-js-confetti-canvas.html  [JS] 캔버스 꽃가루 — 주문 완료·당첨 축하
+- 259-js-particles.html  [JS] 입자 네트워크 — AI·기술 소개 배경
+- 260-js-drag-sort.html  [JS] 끌어서 순서 바꾸기 — 우선순위·장바구니 정렬
+- 261-js-flip-shuffle.html  [JS] FLIP 섞기 — 필터·정렬 결과 재배치
+- 262-js-view-transition.html  [JS] 뷰 전환 — 목록 → 상세 화면 전환
+- 263-js-toast-queue.html  [JS] 쌓이는 알림 — 주문·결제 상태 알림
+- 264-js-swipe-carousel.html  [JS] 밀어 넘기는 캐러셀 — 상품 이미지·배너
