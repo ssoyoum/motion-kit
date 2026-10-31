@@ -60,6 +60,13 @@ button:focus-visible { outline: 2px solid var(--mk-accent); outline-offset: 2px;
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-width: 0; }
 .stage { aspect-ratio: 16 / 10; max-width: 100%; display: grid; place-items: center; background: var(--stage); color: var(--ink); overflow: hidden; position: relative; }
 .stage .cat { position: absolute; top: 10px; left: 12px; font: 600 11px/1 var(--f-mono); letter-spacing: .06em; color: var(--ink-soft); text-transform: uppercase; }
+.fav { position: absolute; top: 6px; right: 8px; z-index: 3; border: 0; background: transparent; font-size: 18px; line-height: 1; padding: 4px; cursor: pointer; color: var(--ink-soft); opacity: .45; }
+.fav:hover { opacity: .9; }
+.fav[aria-pressed="true"] { color: var(--mk-warn); opacity: 1; }
+.chip.favchip { border-color: var(--mk-warn); }
+.favbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); }
+.favbar button { font: 600 12.5px var(--f-body); padding: 7px 12px; border-radius: 8px; border: 0; background: var(--mk-accent); color: var(--mk-on-accent); cursor: pointer; }
+.favbar .msg { color: var(--mk-success); font-size: 12.5px; }
 .info { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; min-width: 0; }
 .info h2 { margin: 0; font-size: 15px; font-weight: 700; }
 .info p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
@@ -94,6 +101,8 @@ footer code { font-family: var(--f-mono); font-size: 12px; }
   </div>
   <p class="note" id="rm" hidden>시스템에서 '동작 줄이기'가 켜져 있어 멈춘 상태로 열었습니다. 재생을 누르면 움직입니다. 실제 서비스에서는 <code>@media (prefers-reduced-motion: reduce)</code>로 끄는 것을 권합니다.</p>
 
+  <div class="favbar" id="favbar" hidden><span>모은 모션을 한 번에 가져갑니다.</span><button type="button" id="copyfav">모은 것 HTML+CSS 전부 복사</button><span class="msg" id="favmsg" aria-live="polite"></span></div>
+  <p class="note" id="favempty" hidden>아직 모은 모션이 없습니다. 카드 오른쪽 위 ★을 누르면 여기에 모입니다. 모은 목록은 이 브라우저에 저장됩니다.</p>
   <main class="grid" id="grid"></main>
 
   <footer>
@@ -1149,7 +1158,11 @@ const ORDER = ["로딩", "채팅", "피드백", "폼", "버튼·호버", "텍스
 M.sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
 /*END*/
 
-const CATS = ["전체", ...ORDER];
+const FAV = "★ 자주 쓰는 것";
+const CATS = ["전체", FAV, ...ORDER];
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem("mk-favs") || "[]")); } catch (e) {}
+function saveFavs() { try { localStorage.setItem("mk-favs", JSON.stringify([...favs])); } catch (e) {} }
 document.getElementById("count").textContent = `프론트 모션 ${M.length}종`;
 const grid = document.getElementById("grid");
 const chips = document.getElementById("chips");
@@ -1163,9 +1176,9 @@ function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 
 M.forEach(m => {
   const card = document.createElement("article");
-  card.className = "card"; card.dataset.cat = m.cat;
+  card.className = "card"; card.dataset.cat = m.cat; card.dataset.id = m.id;
   card.innerHTML = `
-    <div class="stage"><span class="cat">${m.cat}</span>${m.html}</div>
+    <div class="stage"><span class="cat">${m.cat}</span><button type="button" class="fav" aria-pressed="${favs.has(m.id)}" aria-label="${m.name} 자주 쓰는 것에 담기" title="자주 쓰는 것에 담기">★</button>${m.html}</div>
     <div class="info">
       <h2>${m.name}</h2>
       <p>${m.use}</p>
@@ -1198,21 +1211,41 @@ M.forEach(m => {
       done("선택했어요. Ctrl+C로 복사하세요");
     }
   }));
+  card.querySelector(".fav").addEventListener("click", e => {
+    const on = !favs.has(m.id);
+    on ? favs.add(m.id) : favs.delete(m.id);
+    saveFavs(); e.currentTarget.setAttribute("aria-pressed", on); updateFavCount();
+    if (cat === FAV) filter();
+  });
   grid.appendChild(card);
 });
 
+function filter() {
+  grid.querySelectorAll(".card").forEach(k => k.hidden = !(cat === "전체" || (cat === FAV ? favs.has(k.dataset.id) : k.dataset.cat === cat)));
+  document.getElementById("favbar").hidden = cat !== FAV || favs.size === 0;
+  document.getElementById("favempty").hidden = !(cat === FAV && favs.size === 0);
+  requestAnimationFrame(apply);
+}
+function updateFavCount() { const s = chips.querySelector(".chip.favchip span"); if (s) s.textContent = favs.size; }
 CATS.forEach(c => {
-  const n = c === "전체" ? M.length : M.filter(m => m.cat === c).length;
+  const n = c === "전체" ? M.length : c === FAV ? favs.size : M.filter(m => m.cat === c).length;
   const b = document.createElement("button");
-  b.type = "button"; b.className = "chip"; b.setAttribute("aria-pressed", c === cat);
+  b.type = "button"; b.className = "chip" + (c === FAV ? " favchip" : ""); b.setAttribute("aria-pressed", c === cat);
   b.innerHTML = `${c}<span>${n}</span>`;
   b.addEventListener("click", () => {
     cat = c;
     chips.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
-    grid.querySelectorAll(".card").forEach(k => k.hidden = !(c === "전체" || k.dataset.cat === c));
-    requestAnimationFrame(apply);
+    filter();
   });
   chips.appendChild(b);
+});
+document.getElementById("copyfav").addEventListener("click", () => {
+  const picked = M.filter(m => favs.has(m.id));
+  const text = picked.map(m => `<!-- ${m.name} -->\n${m.html}`).join("\n\n") + `\n\n<style>\n${picked.map(m => `/* ${m.name} */\n${m.css}`).join("\n\n")}\n</style>`;
+  const msg = document.getElementById("favmsg");
+  const done = t => { msg.textContent = t; clearTimeout(msg._t); msg._t = setTimeout(() => msg.textContent = "", 2500); };
+  try { navigator.clipboard.writeText(text).then(() => done(`${picked.length}개 복사됨`), () => done("복사가 막혀 있습니다. 카드별 복사를 써 주세요")); }
+  catch (e) { done("복사가 막혀 있습니다. 카드별 복사를 써 주세요"); }
 });
 
 function apply() {
