@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>꽃가루 비</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 꽃가루 비 · 조각 14개 · 2.5~4.3s */
+.mk-bg-confetti { position: relative; width: 180px; height: 110px; border-radius: 12px; overflow: hidden; background: var(--mk-surface, #fff); border: 1px solid var(--mk-line, #DCE0EA); }
+.mk-bg-confetti i { position: absolute; top: -12px; width: 5px; height: 9px; border-radius: 1px; animation: mk-bg-confetti linear infinite; }
+.mk-bg-confetti i:nth-child(1) { left: 4%; background: var(--mk-accent, #2F5BFF); animation-duration: 2.5s; animation-delay: 0.00s; }
+.mk-bg-confetti i:nth-child(2) { left: 11%; background: var(--mk-danger, #E5484D); animation-duration: 4.0s; animation-delay: -0.37s; }
+.mk-bg-confetti i:nth-child(3) { left: 18%; background: var(--mk-success, #1F9D55); animation-duration: 3.4s; animation-delay: -0.74s; }
+.mk-bg-confetti i:nth-child(4) { left: 25%; background: var(--mk-warn, #D99A00); animation-duration: 2.8s; animation-delay: -1.11s; }
+.mk-bg-confetti i:nth-child(5) { left: 32%; background: var(--mk-accent, #2F5BFF); animation-duration: 4.3s; animation-delay: -1.48s; }
+.mk-bg-confetti i:nth-child(6) { left: 39%; background: var(--mk-danger, #E5484D); animation-duration: 3.7s; animation-delay: -1.85s; }
+.mk-bg-confetti i:nth-child(7) { left: 46%; background: var(--mk-success, #1F9D55); animation-duration: 3.1s; animation-delay: -2.22s; }
+.mk-bg-confetti i:nth-child(8) { left: 53%; background: var(--mk-warn, #D99A00); animation-duration: 2.5s; animation-delay: -2.59s; }
+.mk-bg-confetti i:nth-child(9) { left: 60%; background: var(--mk-accent, #2F5BFF); animation-duration: 4.0s; animation-delay: -2.96s; }
+.mk-bg-confetti i:nth-child(10) { left: 67%; background: var(--mk-danger, #E5484D); animation-duration: 3.4s; animation-delay: -0.33s; }
+.mk-bg-confetti i:nth-child(11) { left: 74%; background: var(--mk-success, #1F9D55); animation-duration: 2.8s; animation-delay: -0.70s; }
+.mk-bg-confetti i:nth-child(12) { left: 81%; background: var(--mk-warn, #D99A00); animation-duration: 4.3s; animation-delay: -1.07s; }
+.mk-bg-confetti i:nth-child(13) { left: 88%; background: var(--mk-accent, #2F5BFF); animation-duration: 3.7s; animation-delay: -1.44s; }
+.mk-bg-confetti i:nth-child(14) { left: 95%; background: var(--mk-danger, #E5484D); animation-duration: 3.1s; animation-delay: -1.81s; }
+@keyframes mk-bg-confetti {
+  from { transform: translateY(0) rotate3d(1, 1, 0, 0deg); }
+  to { transform: translateY(130px) rotate3d(1, 1, 0, 720deg); }
+}
+</style>
+</head>
+<body>
+<div class="mk-bg-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>화면 레이어 분리</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 화면 레이어 분리 · 4s · 층마다 18px 띄움 */
+.mk-d3-layers { display: grid; place-items: center; width: 180px; height: 110px; perspective: 600px; }
+.mk-d3-layers > div { position: relative; width: 64px; height: 96px; transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(-38deg); }
+.mk-d3-layers i { position: absolute; inset: 0; border-radius: 10px; animation: mk-d3-layers 4s cubic-bezier(.6, 0, .4, 1) infinite; }
+.mk-d3-layers i:nth-child(1) { background: var(--mk-skel-a, #E0E4EC); border: 1px solid var(--mk-line, #DCE0EA); }
+.mk-d3-layers i:nth-child(2) { background: color-mix(in srgb, var(--mk-accent, #2F5BFF) 55%, transparent); --mk-d3-layers-z: 18px; }
+.mk-d3-layers i:nth-child(3) {
+  background: var(--mk-surface, #fff) linear-gradient(var(--mk-accent, #2F5BFF), var(--mk-accent, #2F5BFF)) 8px 8px / 48px 10px no-repeat;
+  border: 1px solid var(--mk-line, #DCE0EA); box-shadow: 0 6px 12px rgb(0 0 0 / .15); --mk-d3-layers-z: 36px;
+}
+@keyframes mk-d3-layers {
+  0%, 20%, 100% { transform: translateZ(0); }
+  50%, 80% { transform: translateZ(var(--mk-d3-layers-z, 0px)); }
+}
+</style>
+</head>
+<body>
+<div class="mk-d3-layers"><div><i></i><i></i><i></i></div></div>
+</body>
+</html>

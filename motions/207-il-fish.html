@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>헤엄치는 물고기</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 헤엄치는 물고기 · 6s 왕복 · 꼬리 0.3s · 물방울 */
+.mk-il-fish { width: 190px; height: 105px; overflow: hidden; }
+.mk-il-fish .wv { fill: none; stroke: var(--mk-accent, #2F5BFF); stroke-width: 2.5; opacity: .5; animation: mk-il-fish-wave 1.5s linear infinite; }
+.mk-il-fish .swim { transform-box: fill-box; transform-origin: center; animation: mk-il-fish-swim 6s ease-in-out infinite; }
+.mk-il-fish .fish { animation: mk-il-fish-bob 1s ease-in-out infinite alternate; }
+.mk-il-fish .tail { fill: var(--mk-danger, #E5484D); transform-box: fill-box; transform-origin: right center; animation: mk-il-fish-tail .3s ease-in-out infinite alternate; }
+.mk-il-fish .bd { fill: var(--mk-warn, #D99A00); }
+.mk-il-fish .eye { fill: var(--mk-ink, #1B1E26); }
+.mk-il-fish .bub circle { fill: none; stroke: var(--mk-accent, #2F5BFF); stroke-width: 1.5; animation: mk-il-fish-bub 2.4s ease-in infinite; }
+.mk-il-fish .bub circle:nth-child(2) { animation-delay: .8s; }
+.mk-il-fish .bub circle:nth-child(3) { animation-delay: 1.6s; }
+@keyframes mk-il-fish-swim {
+  0% { transform: translateX(-40px) scaleX(1); }
+  45% { transform: translateX(40px) scaleX(1); }
+  50% { transform: translateX(40px) scaleX(-1); }
+  95% { transform: translateX(-40px) scaleX(-1); }
+  100% { transform: translateX(-40px) scaleX(1); }
+}
+@keyframes mk-il-fish-bob { from { transform: translateY(-3px); } to { transform: translateY(3px); } }
+@keyframes mk-il-fish-tail { from { transform: rotate(-15deg); } to { transform: rotate(15deg); } }
+@keyframes mk-il-fish-wave { to { transform: translateX(-50px); } }
+@keyframes mk-il-fish-bub { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: .9; } 100% { transform: translateY(-40px); opacity: 0; } }
+</style>
+</head>
+<body>
+<svg class="mk-il-fish" viewBox="0 0 200 110">
+  <path class="wv" d="M0 100q12-6 25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0t25 0"/>
+  <g class="bub"><circle cx="100" cy="44" r="2"/>
+<circle cx="112" cy="44" r="3"/>
+<circle cx="90" cy="44" r="4"/></g>
+  <g class="swim"><g class="fish">
+    <path class="tail" d="M78 55l-14-12v24z"/>
+    <ellipse class="bd" cx="96" cy="55" rx="20" ry="13"/>
+    <circle class="eye" cx="106" cy="51" r="2.5"/>
+  </g></g>
+</svg>
+</body>
+</html>

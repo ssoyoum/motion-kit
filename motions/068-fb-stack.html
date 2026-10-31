@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>알림 카드 쌓기</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 알림 카드 쌓기 · 5s · 카드 3장 0.8s씩 */
+.mk-fb-stack { position: relative; width: 180px; height: 92px; }
+.mk-fb-stack p {
+  position: absolute; left: 0; right: 0; top: 0; margin: 0; padding: 9px 12px 9px 26px; border-radius: 10px; font-size: 13px;
+  background: var(--mk-surface, #fff); border: 1px solid var(--mk-line, #DCE0EA); box-shadow: 0 4px 12px rgb(0 0 0 / .08);
+  opacity: 0; transform-origin: 50% 0;
+}
+.mk-fb-stack p::before { content: ""; position: absolute; left: 11px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--mk-accent, #2F5BFF); }
+.mk-fb-stack p:nth-child(1) { z-index: 1; animation: mk-fb-stack-a 5s cubic-bezier(.2, .8, .2, 1) infinite; }
+.mk-fb-stack p:nth-child(2) { z-index: 2; animation: mk-fb-stack-b 5s cubic-bezier(.2, .8, .2, 1) infinite; }
+.mk-fb-stack p:nth-child(3) { z-index: 3; animation: mk-fb-stack-c 5s cubic-bezier(.2, .8, .2, 1) infinite; }
+@keyframes mk-fb-stack-a {
+  0% { opacity: 0; transform: translateY(-20px); }
+  6%, 16% { opacity: 1; transform: none; }
+  22%, 32% { opacity: 1; transform: translateY(14px) scale(.95); }
+  38%, 85% { opacity: 1; transform: translateY(28px) scale(.9); }
+  100% { opacity: 0; transform: translateY(28px) scale(.9); }
+}
+@keyframes mk-fb-stack-b {
+  0%, 16% { opacity: 0; transform: translateY(-20px); }
+  22%, 32% { opacity: 1; transform: none; }
+  38%, 85% { opacity: 1; transform: translateY(14px) scale(.95); }
+  100% { opacity: 0; transform: translateY(14px) scale(.95); }
+}
+@keyframes mk-fb-stack-c {
+  0%, 32% { opacity: 0; transform: translateY(-20px); }
+  38%, 85% { opacity: 1; transform: none; }
+  100% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+<div class="mk-fb-stack"><p>새 주문 3건</p><p>배송 출발</p><p>리뷰가 도착했어요</p></div>
+</body>
+</html>

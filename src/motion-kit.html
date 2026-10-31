@@ -28,6 +28,7 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body {
   background: var(--bg); color: var(--ink); font: 15px/1.6 var(--f-body);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
@@ -76,7 +77,7 @@ footer code { font-family: var(--f-mono); font-size: 12px; }
 <div class="wrap">
   <header>
     <h1>Motion Kit <small id="count">프론트 모션</small></h1>
-    <p class="lede">로딩, 채팅, 피드백, 텍스트, 주목, 전환, 아이콘, 차트, 배경, 3D에 쓰는 CSS 애니메이션입니다. 라이브러리 없이 HTML과 CSS만 복사해 붙이면 됩니다. 색은 <code>--mk-accent</code> 같은 CSS 변수 하나로 바꿉니다.</p>
+    <p class="lede">로딩, 채팅, 피드백, 폼, 버튼, 텍스트, 전환, 내비게이션, 아이콘, 일러스트, 차트, 배경, 3D까지 프로젝트에 바로 붙이는 CSS 애니메이션입니다. '마우스를 올려 보세요'라고 적힌 카드는 실제 호버로 움직입니다. 라이브러리 없이 HTML과 CSS만 복사해 붙이면 됩니다. 색은 <code>--mk-accent</code> 같은 CSS 변수 하나로 바꿉니다.</p>
   </header>
 
   <div class="bar" role="toolbar" aria-label="보기 설정">
@@ -1143,7 +1144,8 @@ ${N(6, k => `.mk-cube i:nth-child(${k + 1}) { transform: ${["rotateY(0)", "rotat
 @keyframes mk-fan-a { 0%, 20%, 100% { transform: none; } 40%, 80% { transform: rotate(-18deg); } }
 @keyframes mk-fan-c { 0%, 20%, 100% { transform: none; } 40%, 80% { transform: rotate(18deg); } }` },
 ];
-const ORDER = ["로딩", "채팅", "피드백", "텍스트", "주목", "전환", "아이콘", "차트", "배경", "3D"];
+/*PARTS*/
+const ORDER = ["로딩", "채팅", "피드백", "폼", "버튼·호버", "텍스트", "주목", "전환", "내비", "아이콘", "일러스트", "차트", "배경", "3D"];
 M.sort((a, b) => ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat));
 /*END*/
 
