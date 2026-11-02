@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROC 커브 그리기</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* ROC 커브 그리기 · 4s · 곡선 그리기 + AUC 0→0.82 */
+@property --mk-an-roc-n { syntax: "<integer>"; initial-value: 0; inherits: true; }
+.mk-an-roc { position: relative; width: 120px; height: 120px; counter-reset: auc var(--mk-an-roc-n); animation: mk-an-roc-n 4s cubic-bezier(.4, 0, .2, 1) infinite both; }
+.mk-an-roc svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mk-an-roc .ax { fill: none; stroke: var(--mk-skel-a, #E0E4EC); }
+.mk-an-roc .d { stroke: var(--mk-ink-soft, #8A90A0); stroke-dasharray: 2 2; }
+.mk-an-roc text { font: 500 9px system-ui, sans-serif; fill: var(--mk-ink-soft, #8A90A0); }
+.mk-an-roc polygon { fill: var(--mk-accent, #2F5BFF); opacity: 0; animation: mk-an-roc-a 4s infinite both; }
+.mk-an-roc polyline { fill: none; stroke: var(--mk-accent, #2F5BFF); stroke-width: 2; stroke-linejoin: round; stroke-dasharray: 1; animation: mk-an-roc-l 4s ease-out infinite both; }
+.mk-an-roc span { position: absolute; left: 44%; top: 56%; font: 800 11px system-ui, sans-serif; color: var(--mk-ink, #1B1E26); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mk-an-roc span::after { content: "AUC 0." counter(auc, decimal-leading-zero); }
+@keyframes mk-an-roc-n { 0%, 10% { --mk-an-roc-n: 0; } 50%, 100% { --mk-an-roc-n: 82; } }
+@keyframes mk-an-roc-l { 0% { stroke-dashoffset: 1; opacity: 1; } 45%, 90% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes mk-an-roc-a { 0%, 42% { opacity: 0; } 58%, 90% { opacity: .14; } 100% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="mk-an-roc"><svg viewBox="0 0 100 100"><path class="ax" d="M8 4V92H96"/><path class="d" d="M8 92L96 4"/><polygon points="8,92 8.2,70.3 8.6,62.5 9.4,56.8 10.4,52 11.8,47.9 13.5,44.2 15.5,40.8 17.8,37.7 20.4,34.8 23.3,32.1 26.5,29.6 30,27.1 33.8,24.8 37.9,22.6 42.4,20.4 47.1,18.4 52.2,16.4 57.5,14.5 63.2,12.6 69.1,10.8 75.4,9 81.9,7.3 88.8,5.6 96,4 96,92"/><polyline pathLength="1" points="8,92 8.2,70.3 8.6,62.5 9.4,56.8 10.4,52 11.8,47.9 13.5,44.2 15.5,40.8 17.8,37.7 20.4,34.8 23.3,32.1 26.5,29.6 30,27.1 33.8,24.8 37.9,22.6 42.4,20.4 47.1,18.4 52.2,16.4 57.5,14.5 63.2,12.6 69.1,10.8 75.4,9 81.9,7.3 88.8,5.6 96,4"/><text x="0" y="7">1</text><text x="0" y="95">0</text></svg><span></span></div>
+</body>
+</html>
