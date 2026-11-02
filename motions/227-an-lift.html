@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>리프트 차트</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 리프트 차트 · 3.6s · 10분위 막대 + 평균 1배 기준선 */
+.mk-an-lift { position: relative; display: flex; align-items: flex-end; gap: 4px; height: 92px; border-bottom: 1px solid var(--mk-ink-soft, #8A90A0); }
+.mk-an-lift i { width: 14px; border-radius: 2px 2px 0 0; background: color-mix(in srgb, var(--mk-ink-soft, #8A90A0) 35%, transparent); transform-origin: bottom; animation: mk-an-lift 3.6s cubic-bezier(.2, .8, .2, 1) var(--d) infinite both; }
+.mk-an-lift i:first-child { background: var(--mk-accent, #2F5BFF); }
+.mk-an-lift i:nth-child(-n+4):not(:first-child) { background: var(--mk-ink, #1B1E26); }
+.mk-an-lift b { position: absolute; left: -4px; right: -4px; height: 11px; line-height: 10px; text-align: right; border-bottom: 1px dashed var(--mk-ink, #1B1E26); font: 700 8px system-ui, sans-serif; color: var(--mk-ink, #1B1E26); animation: mk-an-lift-b 3.6s infinite both; }
+@keyframes mk-an-lift { 0% { transform: scaleY(0); opacity: 1; } 28%, 88% { transform: none; opacity: 1; } 100% { transform: none; opacity: 0; } }
+@keyframes mk-an-lift-b { 0%, 40% { opacity: 0; } 52%, 88% { opacity: 1; } 100% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="mk-an-lift"><i style="height:77px;--d:0.00s"></i><i style="height:52px;--d:0.07s"></i><i style="height:36px;--d:0.14s"></i><i style="height:28px;--d:0.21s"></i><i style="height:21px;--d:0.28s"></i><i style="height:16px;--d:0.35s"></i><i style="height:14px;--d:0.42s"></i><i style="height:12px;--d:0.49s"></i><i style="height:10px;--d:0.56s"></i><i style="height:8px;--d:0.63s"></i><b style="bottom:28px">평균 1배</b></div>
+</body>
+</html>

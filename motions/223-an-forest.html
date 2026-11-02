@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>포레스트 플롯</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 포레스트 플롯 · 3.6s · 점 → 구간 양옆으로 펼침 */
+.mk-an-forest { display: flex; flex-direction: row-reverse; gap: 6px; font: 500 9px system-ui, sans-serif; }
+.mk-an-forest ul { margin: 0; padding: 0; list-style: none; text-align: right; color: var(--mk-ink-soft, #8A90A0); }
+.mk-an-forest li { height: 16px; line-height: 16px; white-space: nowrap; }
+.mk-an-forest li.hl { color: var(--mk-ink, #1B1E26); font-weight: 700; }
+.mk-an-forest .p { position: relative; width: 120px; border-bottom: 1px solid var(--mk-skel-a, #E0E4EC); }
+.mk-an-forest .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--mk-ink, #1B1E26); }
+.mk-an-forest .p > div { position: relative; height: 16px; --c: var(--mk-ink-soft, #8A90A0); }
+.mk-an-forest .p > .k { --c: var(--mk-ink, #1B1E26); }
+.mk-an-forest .p > .hl { --c: var(--mk-accent, #2F5BFF); }
+.mk-an-forest span { position: absolute; top: 7.5px; height: 1.5px; background: var(--c); animation: mk-an-forest-ci 3.6s cubic-bezier(.2, .8, .2, 1) var(--d) infinite both; }
+.mk-an-forest .p b { position: absolute; top: 4.5px; width: 7px; height: 7px; margin-left: -3.5px; background: var(--c); animation: mk-an-forest-pt 3.6s cubic-bezier(.34, 1.56, .64, 1) var(--d) infinite both; }
+@keyframes mk-an-forest-pt { 0% { transform: scale(0); opacity: 1; } 10%, 88% { transform: none; opacity: 1; } 100% { transform: none; opacity: 0; } }
+@keyframes mk-an-forest-ci { 0%, 10% { transform: scaleX(0); opacity: 1; } 32%, 88% { transform: none; opacity: 1; } 100% { transform: none; opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="mk-an-forest"><div class="p"><i class="zero" style="left:35.3%"></i><div class="k" style="--d:0.00s"><span style="left:44.1%;width:32.4%;transform-origin:45.5% 50%"></span><b style="left:58.8%"></b></div><div style="--d:0.12s"><span style="left:26.5%;width:41.1%;transform-origin:50% 50%"></span><b style="left:47.1%"></b></div><div style="--d:0.24s"><span style="left:14.7%;width:32.4%;transform-origin:45.5% 50%"></span><b style="left:29.4%"></b></div><div class="hl" style="--d:0.36s"><span style="left:47.1%;width:47%;transform-origin:50% 50%"></span><b style="left:70.6%"></b></div><div style="--d:0.48s"><span style="left:23.5%;width:29.4%;transform-origin:50% 50%"></span><b style="left:38.2%"></b></div><div style="--d:0.60s"><span style="left:5.9%;width:29.4%;transform-origin:40% 50%"></span><b style="left:17.6%"></b></div></div><ul><li>무료배송 문구</li><li>리뷰 위로</li><li>가격 강조</li><li class="hl">영상 썸네일</li><li>CTA 색</li><li>쿠폰 팝업</li></ul></div>
+</body>
+</html>
