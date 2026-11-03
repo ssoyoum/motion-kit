@@ -1,0 +1,26 @@
+<!doctype html><meta charset="utf-8"><title>개선안</title>
+<style>
+body{margin:0;background:#1a1c24;font:14px/1.5 system-ui,"Malgun Gothic",sans-serif;color:#e8eaf2;display:flex;gap:40px;justify-content:center;padding:32px}
+.col{width:390px}h2{font-size:16px;margin:0 0 12px;color:#9aa3ff}
+.ph{background:#0d0e12;border:1px solid #2a2d38;border-radius:20px;height:760px;overflow:hidden;position:relative;padding:20px;box-sizing:border-box}
+h1{font-size:24px;margin:0 0 8px}small{color:#8a90a0;font-size:13px;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}.chips.scroll{flex-wrap:nowrap;overflow:hidden;margin-right:-20px}
+.c{background:#1b1e26;border:1px solid #2a2d38;border-radius:99px;padding:4px 11px;white-space:nowrap;font-size:13px}.c.on{background:#fff;color:#000}
+.card{background:#171a22;border:1px solid #2a2d38;border-radius:14px;height:150px;margin-top:10px;display:flex;align-items:center;justify-content:center;color:#6a72ff;font-size:28px}
+.bad{outline:2px dashed #ff6b6b;outline-offset:2px}.good{outline:2px dashed #4cd98a;outline-offset:2px}
+.note{margin-top:12px;color:#c9cde0;font-size:13px}
+input{width:100%;box-sizing:border-box;background:#1b1e26;border:1px solid #2a2d38;border-radius:10px;padding:9px 12px;color:#e8eaf2;margin-top:12px}
+.stick{position:sticky;top:0;background:#0d0e12}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid .card{height:110px;margin:0}
+</style>
+<div class="col"><h2>지금 (모바일)</h2><div class="ph">
+<h1>Motion Kit <small>325종</small></h1>
+<div class="chips bad"><span class="c on">전체</span><span class="c">★ 자주</span><span class="c">로딩</span><span class="c">채팅</span><span class="c">피드백</span><span class="c">폼</span><span class="c">버튼·호버</span><span class="c">호버 장식</span><span class="c">텍스트</span><span class="c">주목</span><span class="c">흔들기</span><span class="c">전환</span><span class="c">퇴장</span><span class="c">스크롤</span><span class="c">내비</span><span class="c">아이콘</span><span class="c">…22개</span></div>
+<div class="card">◌</div><div class="card">• • •</div>
+<p class="note">① 칩 22개가 5줄 → 첫 카드가 화면 아래로 밀림<br>② 설명글·칩이 오른쪽으로 잘림(가로 넘침)<br>③ 카드가 1열이라 한 화면에 1개</p></div></div>
+<div class="col"><h2>개선안 (모바일)</h2><div class="ph">
+<div class="stick"><h1>Motion Kit <small>325종</small></h1>
+<input placeholder="🔍 모션 검색 (예: 로딩, 마키, 글로우)">
+<div class="chips scroll good"><span class="c on">전체</span><span class="c">★ 자주</span><span class="c">로딩</span><span class="c">채팅</span><span class="c">피드백</span><span class="c">폼</span><span class="c">버튼·호버</span><span class="c">호버 장식</span></div></div>
+<div class="grid good"><div class="card">◌</div><div class="card">• • •</div><div class="card">▂▄▆</div><div class="card">▭</div></div>
+<p class="note">① 칩을 한 줄 가로 스크롤 + 상단 고정<br>② 검색창으로 분류 찾기 없이 바로 이동<br>③ 카드 2열로 한 화면에 4개, 가로 넘침 제거</p></div></div>
