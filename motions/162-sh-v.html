@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>세로 떨림</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 세로 떨림 · 0.5s · translateY ±6px */
+.mk-sh-v { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 14px; background: var(--mk-accent, #2F5BFF); color: var(--mk-on-accent, #fff); font: 800 22px system-ui, sans-serif; animation: mk-sh-v .5s linear infinite; }
+@keyframes mk-sh-v { 0% { transform: none; } 10% { transform: translateY(1.8px); } 20% { transform: translateY(4.9px); } 30% { transform: translateY(-2.4px); } 40% { transform: translateY(-4.8px); } 50% { transform: translateY(-3.3px); } 60% { transform: translateY(3.1px); } 70% { transform: translateY(-3.7px); } 80% { transform: translateY(-2.1px); } 90% { transform: translateY(3.6px); } 100% { transform: none; } }
+</style>
+</head>
+<body>
+<div class="mk-sh-v">↕</div>
+</body>
+</html>

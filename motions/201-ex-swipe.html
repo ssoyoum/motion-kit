@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>밀어서 지우기</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 밀어서 지우기 · 3.4s · 밀려나고 자리까지 접힘 */
+.mk-ex-swipe { display: grid; width: 180px; font: 700 13px system-ui, sans-serif; }
+.mk-ex-swipe > div { position: relative; overflow: hidden; border-radius: 10px; }
+.mk-ex-swipe > div:first-child { background: var(--mk-danger, #E5484D); animation: mk-ex-swipe-h 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
+.mk-ex-swipe > div:last-child { margin-top: 8px; animation: mk-ex-swipe-m 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
+.mk-ex-swipe span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #fff; }
+.mk-ex-swipe p { position: relative; margin: 0; padding: 14px; background: var(--mk-surface, #fff); color: var(--mk-ink, #1B1E26); border: 1px solid var(--mk-line, #DCE0EA); border-radius: 10px; }
+.mk-ex-swipe > div:first-child p { animation: mk-ex-swipe 3.4s cubic-bezier(.5, 0, .2, 1) infinite; }
+@keyframes mk-ex-swipe { 0%, 20% { transform: none; } 32% { transform: translateX(-40px); } 45%, 100% { transform: translateX(-110%); } }
+@keyframes mk-ex-swipe-h { 0%, 48% { height: 47px; opacity: 1; } 62%, 88% { height: 0; opacity: 1; } 89% { height: 0; opacity: 0; } 100% { height: 47px; opacity: 0; } }
+@keyframes mk-ex-swipe-m { 0%, 48% { margin-top: 8px; } 62%, 88% { margin-top: 0; } 100% { margin-top: 8px; } }
+</style>
+</head>
+<body>
+<div class="mk-ex-swipe"><div><span>삭제</span><p>새 알림 3건</p></div><div><p>배송 출발</p></div></div>
+</body>
+</html>
