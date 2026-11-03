@@ -26,6 +26,7 @@
 - 없음
 
 ## 다음
+- 화면 개선안 적용 여부 결정(사용자 확인 필요): 모바일에서 칩 한 줄 가로 스크롤+상단 고정, 검색창, 카드 2열, 가로 넘침 제거. 목업은 `docs/proposal/proposal-mobile.png`, 지금 화면은 `docs/proposal/now-mobile.png`
 - [ ] main에 합친 뒤 공개 페이지(GitHub Pages)에 325종이 반영됐는지 확인. 아직 합치기 전이라 확인할 수 없음.
 
 ## 보류·막힘
