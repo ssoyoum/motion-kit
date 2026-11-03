@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>읽기 진행 바</title>
+<style>
+/* 색은 아래 변수만 바꾸면 됩니다 */
+:root { --mk-accent:#2F5BFF;--mk-on-accent:#fff;--mk-ink:#1B1E26;--mk-on-ink:#fff;--mk-ink-soft:#8A90A0;--mk-bubble:#E3E7F0;--mk-danger:#E5484D;--mk-success:#1F9D55;--mk-skel-a:#E0E4EC;--mk-skel-b:#F4F5F8;--mk-warn:#D99A00;--mk-surface:#fff;--mk-line:#DCE0EA;--mk-stage:#ECEEF4; }
+@media (prefers-color-scheme: dark) { :root { --mk-accent:#7B96FF;--mk-on-accent:#0E1015;--mk-ink:#E8EAF0;--mk-on-ink:#11131A;--mk-ink-soft:#8C93A5;--mk-bubble:#2A2F3D;--mk-danger:#FF6B70;--mk-success:#3DD68C;--mk-skel-a:#242938;--mk-skel-b:#313849;--mk-warn:#F5C04A;--mk-surface:#161922;--mk-line:#2A2F3C;--mk-stage:#1D212C; color-scheme: dark; } }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--mk-stage); color: var(--mk-ink); font-family: system-ui, sans-serif; }
+
+/* 읽기 진행 바 · scroll() · scaleX 0→1 · 안에서 스크롤해 보세요 */
+.mk-sc-progress { width: 200px; height: 130px; overflow-y: auto; padding: 0 12px 12px; border-radius: 12px; background: var(--mk-surface, #fff); border: 1px solid var(--mk-line, #DCE0EA); scrollbar-width: thin; }
+.mk-sc-progress b { position: sticky; top: 0; display: block; height: 4px; margin: 0 -12px; background: var(--mk-accent, #2F5BFF); transform-origin: 0 50%; }
+.mk-sc-progress p { margin: 12px 0; font: 600 11px system-ui, sans-serif; color: var(--mk-ink-soft, #8A90A0); }
+.mk-sc-progress span { display: block; height: 8px; margin: 0 0 10px; border-radius: 4px; background: var(--mk-skel-a, #E0E4EC); }
+.mk-sc-progress span:nth-of-type(3n) { width: 70%; }
+@supports (animation-timeline: scroll()) {
+  .mk-sc-progress b { animation: mk-sc-progress linear both; animation-timeline: scroll(nearest); }
+}
+@keyframes mk-sc-progress { from { transform: scaleX(0); } to { transform: none; } }
+</style>
+</head>
+<body>
+<div class="mk-sc-progress"><b></b><p>↓ 안에서 스크롤해 보세요</p><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</body>
+</html>

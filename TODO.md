@@ -8,15 +8,20 @@
 - [x] 즐겨찾기 필터와 모은 것 한 번에 복사 (`cea0526`)
 - [x] JS 모션 20종과 `<script>` 복사 지원 (`152a389`)
 - [x] 분석 차트 9종(코호트~ROC), 차트 21종, 총 273종 (`6312b86`, main 합침 `efe4a49`)
+- [x] 인기 모션 저장소(animate.css·Hover.css·CSShake·AOS·Magic UI 등)를 참고해 새 분류 추가: 호버 장식·흔들기·퇴장·스크롤·마키·글로우·파티클, 총 325종 (이 가지, main 합치기 전)
+- [x] README에 갤러리 화면 캡처(`docs/gallery.png`)와 325종 분류표 반영
 - [x] 공개 페이지 반영: https://ssoyoum.github.io/motion-kit/ 에 `an-roc`가 있고 `motions/228-an-roc.html`이 200을 반환함 (2026-11-04 확인)
 
-근거: `src/parts/*.js` 6개 모두 `check-part.js` 통과(111 + 31 + 22 + 40 + 40 + 20 + 9 = 273). `node tools/build.js src/motion-kit.html .`가 273개를 만들고 커밋된 파일과 차이가 없음. README 분류표와 `목록.txt`의 분류별 개수가 빌드 출력과 같음.
+근거(2026-11-04 추가): `src/parts/70-*.js` 두 개 `check-part.js` 통과(전체 148개 + 마키·글로우·파티클 15개 파트), `build.js`가 325개 생성, 갤러리 상단 필터에 새 분류가 보이는 것을 headless Chrome 캡처로 확인. README 분류표는 빌드 출력과 같게 맞춤.
+
+근거(이전): `src/parts/*.js` 6개 모두 `check-part.js` 통과(111 + 31 + 22 + 40 + 40 + 20 + 9 = 273). `node tools/build.js src/motion-kit.html .`가 273개를 만들고 커밋된 파일과 차이가 없음. README 분류표와 `목록.txt`의 분류별 개수가 빌드 출력과 같음.
 
 ## 진행 중
 - 없음
 
 ## 다음
-- 기록된 남은 일 없음
+- main 합친 뒤 공개 페이지(GitHub Pages)에 325종이 반영됐는지 확인
+- 새 분류 카드(마키·글로우·파티클 등)는 문법 검사·빌드만 했고 눈으로는 보지 못함. 화면 확인 필요
 
 ## 보류·막힘
 - 없음
