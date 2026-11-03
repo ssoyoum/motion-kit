@@ -66,9 +66,9 @@ ex("ex-tv", "TV 끄기", "화면·영상 종료", "3s · 가로선으로 눌렸�
   html: `<div class="mk-ex-swipe"><div><span>삭제</span><p>새 알림 3건</p></div><div><p>배송 출발</p></div></div>`,
   css: `.mk-ex-swipe { display: grid; width: 180px; font: 700 13px system-ui, sans-serif; }
 .mk-ex-swipe > div { position: relative; overflow: hidden; border-radius: 10px; }
-.mk-ex-swipe > div:first-child { background: var(--mk-danger, #E5484D); animation: mk-ex-swipe-h 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
+.mk-ex-swipe > div:first-child { animation: mk-ex-swipe-h 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
 .mk-ex-swipe > div:last-child { margin-top: 8px; animation: mk-ex-swipe-m 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
-.mk-ex-swipe span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #fff; }
+.mk-ex-swipe span { position: absolute; inset: 1px; display: flex; align-items: center; justify-content: flex-end; padding-right: 14px; border-radius: 9px; background: var(--mk-danger, #E5484D); color: #fff; }
 .mk-ex-swipe p { position: relative; margin: 0; padding: 14px; background: ${SURF}; color: ${K}; border: 1px solid ${LINE}; border-radius: 10px; }
 .mk-ex-swipe > div:first-child p { animation: mk-ex-swipe 3.4s cubic-bezier(.5, 0, .2, 1) infinite; }
 @keyframes mk-ex-swipe { 0%, 20% { transform: none; } 32% { transform: translateX(-40px); } 45%, 100% { transform: translateX(-110%); } }
@@ -198,9 +198,9 @@ ${on("hv-float-shadow")} { transform: translateY(-6px); }
 .mk-hv-float-shadow:hover::after, .mk-hv-float-shadow:focus-visible::after { opacity: 1; transform: translateY(6px); }`),
 hv("hv-bubble", "말풍선 꼬리", "도움말·툴팁 버튼", "0.25s · 아래에 삼각 꼬리가 튀어나옴",
   `.mk-hv-bubble { transition: background .25s, color .25s; }
-.mk-hv-bubble::after { content: ""; position: absolute; left: calc(50% - 8px); bottom: 0; border: 8px solid transparent; border-top-color: ${A}; border-bottom: 0; transition: transform .25s cubic-bezier(.34, 1.56, .64, 1); }
+.mk-hv-bubble::after { content: ""; position: absolute; left: calc(50% - 8px); bottom: 0; border: 8px solid transparent; border-top-color: ${A}; border-bottom: 0; opacity: 0; transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), opacity .15s; }
 ${on("hv-bubble")} { background: ${A}; color: var(--mk-on-accent, #fff); }
-.mk-hv-bubble:hover::after, .mk-hv-bubble:focus-visible::after { transform: translateY(8px); }`, "도움말"),
+.mk-hv-bubble:hover::after, .mk-hv-bubble:focus-visible::after { transform: translateY(8px); opacity: 1; }`, "도움말"),
 hv("hv-curl", "모서리 접힘", "쿠폰·스티커·메모", "0.35s · 오른쪽 위가 종이처럼 접힘",
   `.mk-hv-curl { border-radius: 0; }
 .mk-hv-curl::before { content: ""; position: absolute; top: 0; right: 0; width: 0; height: 0; background: linear-gradient(225deg, var(--mk-stage, #ECEEF4) 45%, ${S} 50%, ${LINE} 56%, ${SURF} 80%); box-shadow: -1px 1px 2px rgb(0 0 0 / .2); transition: width .35s, height .35s; }

@@ -14,9 +14,9 @@ body { margin: 0; min-height: 100vh; display: grid; place-items: center; backgro
 /* 밀어서 지우기 · 3.4s · 밀려나고 자리까지 접힘 */
 .mk-ex-swipe { display: grid; width: 180px; font: 700 13px system-ui, sans-serif; }
 .mk-ex-swipe > div { position: relative; overflow: hidden; border-radius: 10px; }
-.mk-ex-swipe > div:first-child { background: var(--mk-danger, #E5484D); animation: mk-ex-swipe-h 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
+.mk-ex-swipe > div:first-child { animation: mk-ex-swipe-h 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
 .mk-ex-swipe > div:last-child { margin-top: 8px; animation: mk-ex-swipe-m 3.4s cubic-bezier(.4, 0, .2, 1) infinite; }
-.mk-ex-swipe span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #fff; }
+.mk-ex-swipe span { position: absolute; inset: 1px; display: flex; align-items: center; justify-content: flex-end; padding-right: 14px; border-radius: 9px; background: var(--mk-danger, #E5484D); color: #fff; }
 .mk-ex-swipe p { position: relative; margin: 0; padding: 14px; background: var(--mk-surface, #fff); color: var(--mk-ink, #1B1E26); border: 1px solid var(--mk-line, #DCE0EA); border-radius: 10px; }
 .mk-ex-swipe > div:first-child p { animation: mk-ex-swipe 3.4s cubic-bezier(.5, 0, .2, 1) infinite; }
 @keyframes mk-ex-swipe { 0%, 20% { transform: none; } 32% { transform: translateX(-40px); } 45%, 100% { transform: translateX(-110%); } }
